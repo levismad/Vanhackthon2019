@@ -17,8 +17,8 @@ https://catalogue.servicecanada.gc.ca/apps/EForms/pdf/en/ESDC-EMP5624.pdf
 
 There are 3 ways how to test the app:
 * Clone the repo, open the solution file 'Vanhackthon2019/PDF Form Filler/VanHackathon.sln' and run the project 'FillerPDF.POC' 
-* Download and run a (Release) [https://github.com/levismad/Vanhackthon2019/releases]
-* Visit or demo site
+* Download and run a [Release] (https://github.com/levismad/Vanhackthon2019/releases)
+* Visit the [demo site](http://levismad-vanhackthon.azurewebsites.net/)
 ## Example Usage 
 * First create a document defition class by decorating the class properties/fields with the following supported attributes:
 ```c#
