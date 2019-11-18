@@ -20,7 +20,7 @@ There are 3 ways how to test the app:
 * Download and run a (Release) [https://github.com/levismad/Vanhackthon2019/releases]
 * Visit or demo site
 ## Example Usage 
-First create a document defition class by decorating the class properties/fields with the following supported attributes:
+* First create a document defition class by decorating the class properties/fields with the following supported attributes:
 ```c#
 using FillerPDF.Attributes;
 public class PDF_FORM_XPTO
@@ -36,7 +36,7 @@ public class PDF_FORM_XPTO
     [SimpleTextField("PDF_FORM_XPTO[0].Page1[0].text_field_name[0]")]
     public string SimpleTextField { get; set; }
 
-    // TextFieldFormatted will put the formatted value of the property into the form field "PDF_FORM_XPTO[0].Page1[0].text_field_name[0]"
+    // TextFieldFormatted will put the formatted value of the property into the form field "PDF_FORM_XPTO[0].Page1[0].date_formatted_field[0]"
     // Eg.: DateTextFieldFormatted.ToString("yyyy-MM-dd")
     [TextFieldFormatted("PDF_FORM_XPTO[0].Page4[0].date_formatted_field[0]", typeof(DateTime), "yyyy-MM-dd")]
     public DateTime DateTextFieldFormatted { get; set; }
@@ -69,7 +69,36 @@ public class CustomClass {
     // ...
 }
 ```
+* Once you have your class populated, proceed to load and fill the pdf
 
+```c#
+using iText.Kernel.Pdf;
+using FillerPDF.Contracts;
+using FillerPDF.Fillers;
+
+namespace FillerPDF.POC
+{
+    class Program
+    {
+        static void Main(string[] args){
+            // reads the pdf file into memory
+            var pdfReader = new PdfReader(_fileInput);
+            // allow us to make modification to the pdf
+            pdfReader.SetUnethicalReading(true);
+
+            // Your class with the data
+            var doc = new PDF_FORM_XPTO();
+
+            // create a new version of the pdf
+            PdfDocument pdf = new PdfDocument(pdfReader, new PdfWriter(_fileOutput));
+            IFiller filler = new BasePdfFiller<PDF_FORM_XPTO>(doc);
+
+            //Fill the pdf
+            filler.Fill(pdf);
+        }
+    }
+}
+```
 
 ### Acknowledgments
 
